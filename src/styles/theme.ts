@@ -39,7 +39,7 @@ export default {
 		avatarPink: '#FFC0E7',
 	},
 	shadows: {
-		shadowMedium: '0px 16px 32px -12px rgba(14, 18, 27, 0.10)',
+		medium: '0px 16px 32px -12px rgba(14, 18, 27, 0.10)',
 	},
 	variables: {
 		// Spacing, padding, margin, roundness, etc.
