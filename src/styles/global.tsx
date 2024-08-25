@@ -28,6 +28,57 @@ function GlobalStyles() {
                     line-height: 1.5;
                     background-color: ${theme.colors.bgSoft};
                 }
+
+                button {
+                    background-color: transparent;
+                    border: none;
+                    cursor: pointer;
+                }
+
+                button:focus {
+                    outline: none;
+                }
+
+                button:active {
+                    transform: scale(0.98);
+                }
+
+                button:disabled {
+                    cursor: not-allowed;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: inherit;
+                }
+
+                ul {
+                    list-style: none;
+                }
+
+                input {
+                    border: none;
+                    outline: none;
+                    background-color: transparent;
+                }
+
+                input::placeholder {
+                    color: ${theme.colors.textPlaceholder};
+                }
+
+                input:focus {
+                    outline: none;
+                }
+
+                input[type='number']::-webkit-inner-spin-button,
+                input[type='number']::-webkit-outer-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                input[type='number'] {
+                    -moz-appearance: textfield;
+                }
             `}
 		/>
 	)

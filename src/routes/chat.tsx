@@ -1,6 +1,10 @@
+import Navbar from "../components/layout/navbar"
+
 function Chat() {
 	return (
-		<div>Chat</div>
+		<div>
+			<Navbar name="fatih" />
+		</div>
 	)
 }
 

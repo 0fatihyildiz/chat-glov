@@ -1,9 +1,9 @@
-import Avatar from '../components/ui/avatar'
+import StartChat from '../assets/images/StartChat.png'
 
 function General() {
 	return (
 		<div>
-            <Avatar color="blue" size="medium" />
+			<img src={StartChat} alt="Start Chat" />
         </div>
 	)
 }

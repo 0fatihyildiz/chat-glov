@@ -10,7 +10,7 @@ export const avatarColors = ['orange', 'blue', 'green', 'purple', 'red', 'yellow
 
 const Avatar = styled.div<Props>`
     border-radius: 50%;
-    border: 2px #FFF solid;
+    border: 2px ${({theme}) => theme.colors.white} solid;
     box-shadow: ${({ theme }) => theme.shadows.medium};
     height: ${({ size }) => size === 'small' ? '24px' : '33px'};
     width: ${({ size }) => size === 'small' ? '24px' : '33px'};
@@ -45,6 +45,11 @@ function AvatarPlaceholder() {
 }
 
 function AvatarComponent({ size, color, url }: Props) {
+	size = size || 'medium'
+	if (!color) {
+		color = avatarColors[Math.floor(Math.random() * avatarColors.length)]
+	}
+
 	return (
 		<Avatar color={color} size={size}>
 			<AvatarPlaceholder />

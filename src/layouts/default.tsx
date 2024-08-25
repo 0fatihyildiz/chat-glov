@@ -15,28 +15,20 @@ const Container = styled.div`
         background-color: ${({ theme }) => theme.colors.white80};
         box-shadow: ${({ theme }) => theme.shadows.medium};
         border-radius: 0 24px 24px 0;
-    }
-
-    .side {
-        width: 250px;
-        height: 100%;
-        background-color: ${({ theme }) => theme.colors.white80};
-        box-shadow: ${({ theme }) => theme.shadows.medium}˝;
-        border-radius: 24px 0 0 24px;
-
+        padding: ${({ theme }) => theme.variables[12]};
     }
 `
 
 function Default() {
-	return (
-		<Container>
+    return (
+        <Container>
             <Side />
 
-			<div className="content">
-				<Outlet />
-			</div>
-		</Container>
-	)
+            <div className="content">
+                <Outlet />
+            </div>
+        </Container>
+    )
 }
 
 export default Default
