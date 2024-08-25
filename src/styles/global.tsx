@@ -7,10 +7,13 @@ function GlobalStyles() {
 	return (
 		<Global
 			styles={css`
+                @import '../assets/fonts/inter.css';
+
                 *, *::before, *::after {
                     box-sizing: border-box;
                     margin: 0;
                     padding: 0;
+                    font-family: 'InterDisplay', sans-serif;
                 }
 
                 html, body, #app {
@@ -22,7 +25,6 @@ function GlobalStyles() {
                 }
 
                 body {
-                    font-family: 'Inter, sans-serif';
                     line-height: 1.5;
                     background-color: ${theme.colors.bgSoft};
                 }
