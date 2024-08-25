@@ -8,6 +8,7 @@
 		"build": "tsc -b && vite build",
 		"test": "vitest --coverage --no-watch",
 		"lint": "eslint .",
+		"supabase:types": "pnpm dlx supabase gen types typescript --project-id \"tatykkpzfmrdbqxtbeoq\" --schema public > ./src/types/supabase.ts",
 		"preview": "vite preview",
 		"prepare": "husky"
 	},
@@ -15,6 +16,7 @@
 		"@emotion/css": "^11.13.0",
 		"@emotion/react": "^11.13.3",
 		"@emotion/styled": "^11.13.0",
+		"@supabase/supabase-js": "^2.45.2",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"react-router-dom": "^6.26.1"
@@ -31,6 +33,7 @@
 		"eslint-plugin-react-refresh": "^0.4.9",
 		"globals": "^15.9.0",
 		"husky": "^9.1.5",
+		"supabase": ">=1.8.1",
 		"typescript": "^5.5.3",
 		"typescript-eslint": "^8.0.1",
 		"vite": "^5.4.1",
