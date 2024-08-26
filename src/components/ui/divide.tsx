@@ -1,17 +1,11 @@
-import styled from '@emotion/styled'
+import { Divide } from "../../styles/components/ui/divide"
 
-interface Props {
+export interface DivideProps {
 	height?: string
 	width?: string
 }
 
-const Divide = styled.div<Props>`
-    height: ${({ height }) => height}px;
-    width: ${({ width }) => width};
-    background-color: ${({ theme }) => theme.colors.strokeSoft};
-`
-
-function DivideComponent({ height, width }: Props) {
+function DivideComponent({ height, width }: DivideProps) {
 	return (
 		<Divide width={ width ? `${width}px` : '100%'} height={height || '1'} />
 	)

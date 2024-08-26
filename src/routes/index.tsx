@@ -4,7 +4,9 @@ import Chat from './chat'
 import General from './general'
 import NotFound from './notFound'
 
-// interface Props {}
+type RouteType = typeof routes[keyof typeof routes] & {
+	children?: Record<string, RouteType>
+}
 
 export const routes = {
 	general: {
@@ -32,26 +34,26 @@ function App() {
 					path="/"
 					element={<DefaultLayout />}
 				>
-					{Object.values(routes).map((route: any) => (
+					{Object.values(routes).map((route: RouteType) => (
 						<Route
 							key={route.path}
 							path={route.path}
 							element={route.element}
 						>
-							{route.children &&
-								Object.values(route.children).map((childRoute: any) => (
-									<Route
-										key={childRoute.path}
-										path={childRoute.path}
-										element={childRoute.element}
-									/>
-								))}
+							{route.children
+							&& Object.values(route.children).map((childRoute: RouteType) => (
+								<Route
+									key={childRoute.path}
+									path={childRoute.path}
+									element={childRoute.element}
+								/>
+							))}
 						</Route>
 					))}
 				</Route>
 			</Routes>
 		</Router>
-	);
+	)
 }
 
 export default App

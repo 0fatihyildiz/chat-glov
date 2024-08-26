@@ -37,6 +37,10 @@ export default {
 		avatarTeal: '#C2F5EE',
 		avatarYellow: '#FFEEC0',
 		avatarPink: '#FFC0E7',
+
+		// Button
+		blue: '#335CFF',
+		blueDarker: '#2547D0',
 	},
 	shadows: {
 		small: '0px 1px 2px 0px rgba(10, 13, 20, 0.03)',

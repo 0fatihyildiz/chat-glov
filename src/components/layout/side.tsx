@@ -1,94 +1,40 @@
 import { Icon } from '@iconify/react'
+import { Fragment, useEffect, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
-import styled from '@emotion/styled'
+import { useNavigate } from 'react-router-dom'
+import useCurrentId from '../../hooks/useCurrentId'
+import supabase from '../../lib/supabase'
+import useAuthStore from '../../stores/auth'
 import Avatar from '../ui/avatar'
 import Divide from '../ui/divide'
+import { Side, SideItem } from '../../styles/components/layout/side'
 
 interface SideItemProps {
-	name: string,
-	url?: string,
+	id: string
+	name: string
+	url?: string
 	active?: boolean
 }
 
-const Side = styled.div`
-		background-color: ${({ theme }) => theme.colors.white80};
-		box-shadow: ${({ theme }) => theme.shadows.medium}˝;
-		gap: ${({ theme }) => theme.variables[10]};
-		padding: ${({ theme }) => `${theme.variables[12]} ${theme.variables[16]} ${theme.variables[12]} ${theme.variables[16]}`};
-		display: flex;
-		flex-direction: column;
-        width: 250px;
-        height: 100%;
-        border-radius: 24px 0 0 24px;
-`
+interface UserProfile {
+	full_name: string | null
+	id: string
+	avatar_url: string | null
+}
 
-const SideItem = styled.button`
-		width: 100%;
-		padding: ${({ theme }) => theme.variables[6]};
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		color: ${({ theme }) => theme.colors.textSub};
-		border-radius: ${({ theme }) => theme.variables[12]};
-		position: relative;
-		transition: all 0.2s;
 
-		.detail {
-			gap: ${({ theme }) => theme.variables[12]};
-			font-size: ${({ theme }) => theme.variables[16]};
-			font-weight: 400;
-			text-overflow: ellipsis;
-			text-transform: capitalize;
-			width: 100%;
-			display: flex;
-			align-items: center;
-			align-self: stretch;
-		}
+function SideItemComponent({ name, url, id }: SideItemProps) {
+	const navigate = useNavigate()
+	const currentId = useCurrentId()
 
-		svg {
-			width: 24px;
-			height: 24px;
-			color: ${({ theme }) => theme.colors.iconPassive};
-			transition: all 0.2s;
-		}
-
-		&:hover {
-			color: ${({ theme }) => theme.colors.textStrong};
-			background-color: rgba(0, 0, 0, 0.02);
-
-			svg {
-				color: ${({ theme }) => theme.colors.iconSoft};
-			}
-		}
-
-		&.active {
-			color: ${({ theme }) => theme.colors.textStrong};
-			background-color: ${({ theme }) => theme.colors.primary10};
-
-			.detail {
-				font-weight: 500;
-			}
-
-			svg {
-				color: ${({ theme }) => theme.colors.primary50};
-			}
-
-			&::after {
-				content: '';
-				position: absolute;
-				left: -10px;
-				width: 4px;
-				height: 12px;
-				background-color: ${({ theme }) => theme.colors.primary};
-				border-radius: 12px;
-		}
-`
-
-function SideItemComponent({ name, url, active }: SideItemProps) {
 	return (
-		<SideItem className={active ? 'active' : ''}>
+		<SideItem
+			className={currentId === id ? 'active' : ''}
+			onClick={() => navigate(`/${id}`)}
+		>
 			<div className="detail">
-				<Avatar url={url} />
+				<Avatar url={url} name={name || `annon_${id.split('-')[0]}`} />
 				{ name }
 			</div>
 
@@ -98,11 +44,29 @@ function SideItemComponent({ name, url, active }: SideItemProps) {
 }
 
 function SideComponent() {
+	const { getMe } = useAuthStore()
+	const [users, setUsers] = useState<UserProfile[]>([])
+
+	useEffect(() => {
+		(async () => {
+			const me = await getMe()
+			const { data } = await supabase.from('profiles').select('full_name, id, avatar_url').neq('id', me?.id || uuidv4())
+			setUsers(data || [])
+		})()
+	}, [])
+
 	return (
 		<Side>
-			<SideItemComponent name="Fatih" active />
-			<Divide />
-			<SideItemComponent name="Mahmut" />
+			{ users.map(user => (
+				<Fragment key={user.id}>
+					<SideItemComponent
+						name={user.full_name || `annon_${user.id.split('-')[0]}`}
+						url={user.avatar_url || ''}
+						id={user.id}
+					/>
+					{ users.indexOf(user) !== users.length - 1 && <Divide /> }
+				</Fragment>
+			)) }
 		</Side>
 	)
 }

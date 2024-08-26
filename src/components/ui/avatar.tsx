@@ -1,32 +1,14 @@
-import styled from '@emotion/styled'
+import { key } from '../../lib/random'
+import { Avatar } from '../../styles/components/ui/avatar'
 
-interface Props {
+export interface AvatarProps {
 	color?: typeof avatarColors[number]
 	size?: 'small' | 'medium'
 	url?: string
+	name?: string
 }
 
 export const avatarColors = ['orange', 'blue', 'green', 'purple', 'red', 'yellow', 'teal', 'pink']
-
-const Avatar = styled.div<Props>`
-    border-radius: 50%;
-    border: 2px ${({theme}) => theme.colors.white} solid;
-    box-shadow: ${({ theme }) => theme.shadows.medium};
-    height: ${({ size }) => size === 'small' ? '24px' : '33px'};
-    width: ${({ size }) => size === 'small' ? '24px' : '33px'};
-    background: ${({ theme, color }) => theme.colors[`avatar${String(color ? (color?.charAt(0).toUpperCase() + color?.slice(1)) : '')}` as keyof typeof theme.colors] ?? 'avatarBlue'};
-    position: relative;
-
-    svg, img {
-        border-radius: 50%;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        position: absolute;
-    }
-`
 
 function AvatarPlaceholder() {
 	return (
@@ -44,10 +26,11 @@ function AvatarPlaceholder() {
 	)
 }
 
-function AvatarComponent({ size, color, url }: Props) {
+function AvatarComponent({ size, color, url, name }: AvatarProps) {
 	size = size || 'medium'
+
 	if (!color) {
-		color = avatarColors[Math.floor(Math.random() * avatarColors.length)]
+		color = avatarColors[key(name || '', 0, avatarColors.length - 1)]
 	}
 
 	return (
