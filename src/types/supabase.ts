@@ -12,6 +12,7 @@ export interface Database {
 			chat: {
 				Row: {
 					created_at: string
+					forwarded_id: string | null
 					id: number
 					message: Json | null
 					updated_at: string | null
@@ -19,6 +20,7 @@ export interface Database {
 				}
 				Insert: {
 					created_at?: string
+					forwarded_id?: string | null
 					id?: number
 					message?: Json | null
 					updated_at?: string | null
@@ -26,12 +28,20 @@ export interface Database {
 				}
 				Update: {
 					created_at?: string
+					forwarded_id?: string | null
 					id?: number
 					message?: Json | null
 					updated_at?: string | null
 					user_id?: string | null
 				}
 				Relationships: [
+					{
+						foreignKeyName: 'chat_forwarded_id_fkey'
+						columns: ['forwarded_id']
+						isOneToOne: false
+						referencedRelation: 'profiles'
+						referencedColumns: ['id']
+					},
 					{
 						foreignKeyName: 'chat_user_id_fkey'
 						columns: ['user_id']
