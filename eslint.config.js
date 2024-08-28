@@ -7,6 +7,7 @@ export default antfu({
 		semi: false,
 	},
 	rules: {
+		'ts/consistent-type-definitions': "warn",
 		'no-trailing-spaces': ['error', { skipBlankLines: true, ignoreComments: true }],
 		'no-console': 0,
 		'node/prefer-global/process': 0,
