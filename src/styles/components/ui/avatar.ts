@@ -17,6 +17,7 @@ const Avatar = styled.div<AvatarProps>`
     width: ${({ size }) => getSize(size)};
     background: ${({ theme, color }) => getAvatarColor(theme, color)};
     position: relative;
+    flex-shrink: 0;
 
     svg, img {
         border-radius: 50%;
@@ -26,7 +27,10 @@ const Avatar = styled.div<AvatarProps>`
         height: 100%;
         width: 100%;
         object-fit: cover;
-        background: ${({ theme }) => theme.colors.white70};
+    }
+
+    img {
+        background: ${({ theme }) => theme.colors.white};
     }
 `
 

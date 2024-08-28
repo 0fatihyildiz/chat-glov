@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 
 const Container = styled.div`
@@ -6,6 +7,7 @@ const Container = styled.div`
     justify-content: center;
     height: 500px;
     border-radius: ${({ theme }) => theme.variables[16]};
+    background-color: ${({ theme }) => theme.colors.white};
 
     .content {
         width: 500px;
@@ -14,6 +16,17 @@ const Container = styled.div`
         box-shadow: ${({ theme }) => theme.shadows.medium};
         border-radius: 0 24px 24px 0;
         padding: ${({ theme }) => theme.variables[12]};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
+
+        .content {
+            width: 100%;
+            border-radius: 0;
+        }
     }
 `
 
