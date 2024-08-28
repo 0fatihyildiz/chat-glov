@@ -11,7 +11,12 @@ const Navbar = styled.div`
     text-transform: capitalize;
     border-bottom: 1px solid ${({ theme }) => theme.colors.strokeSoft};
     position: relative;
-    box-shadow: ${({ theme }) => theme.shadows.medium};
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+        button {
+            display: none;
+        }
+    }
 `
 
 export { Navbar }

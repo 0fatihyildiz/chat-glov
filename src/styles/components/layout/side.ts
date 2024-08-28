@@ -1,6 +1,6 @@
-import styled from "@emotion/styled"
+import styled from '@emotion/styled'
 
-const Side = styled.div`
+const Side = styled.div<{ open: boolean }>`
 		background-color: ${({ theme }) => theme.colors.white80};
 		box-shadow: ${({ theme }) => theme.shadows.medium}˝;
 		gap: ${({ theme }) => theme.variables[10]};
@@ -10,6 +10,44 @@ const Side = styled.div`
         width: 250px;
         height: 100%;
         border-radius: 24px 0 0 24px;
+		overflow-y: auto;
+
+		.head {
+			width: 100%;
+			display: flex;
+			justify-content: end;
+			align-items: center;
+			margin-top: ${({ theme }) => theme.variables[12]};
+			gap: ${({ theme }) => theme.variables[12]};
+			margin-bottom: ${({ theme }) => theme.variables[12]};
+
+			@media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+				margin-top: -${({ theme }) => theme.variables[16]};
+
+				button {
+					display: none;
+				}
+			}
+		}
+
+
+		@media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+			border-radius: 0;
+			width: 80%;
+			transform: translateX(-100%);
+			opacity: 0;
+			position: fixed;
+			left: 0;
+			z-index: 1000;
+			background-color: ${({ theme }) => theme.colors.white};
+			box-shadow: ${({ theme }) => theme.shadows.medium};
+			transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+			${({ open }) => open && `
+				transform: translateX(0);
+				opacity: 1;
+			`}
+		}
 `
 
 const SideItem = styled.button`
@@ -27,13 +65,21 @@ const SideItem = styled.button`
 			gap: ${({ theme }) => theme.variables[12]};
 			font-size: ${({ theme }) => theme.variables[16]};
 			font-weight: 400;
-			text-overflow: ellipsis;
+			text-elipsis: ellipsis;
+			overflow: hidden;
+			text-wrap: nowrap;
+			widht: 100%;
 			text-transform: capitalize;
 			width: 100%;
 			display: flex;
 			align-items: center;
 			align-self: stretch;
 		}
+
+		${({ disabled }) => disabled && `
+			opacity: 0.5;
+			pointer-events: none;
+		`}
 
 		svg {
 			width: 24px;
